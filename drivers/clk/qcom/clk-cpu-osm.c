@@ -3153,6 +3153,9 @@ static int clk_cpu_osm_driver_probe(struct platform_device *pdev)
 	struct cpu_cycle_counter_cb cb = {
 		.get_cpu_cycle_counter = clk_osm_get_cpu_cycle_counter,
 	};
+	
+	if (is_cpu_overclocked > 0)
+		pvs_ver = 1;
 
 	/*
 	 * Require the RPM-XO clock and GCC-HMSS-GPLL0 clocks to be registererd

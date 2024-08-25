@@ -57,6 +57,17 @@ extern struct clk_ops clk_dummy_ops;
 #define BM(msb, lsb) (((((uint32_t)-1) << (31-msb)) >> (31-msb+lsb)) << lsb)
 #define BVAL(msb, lsb, val)     (((val) << lsb) & BM(msb, lsb))
 
+unsigned int is_cpu_overclocked = 0;
+
+static int __init read_cpu_overclock_state(char *s)
+{
+	if (s)
+		is_cpu_overclocked = simple_strtoul(s, NULL, 0);
+
+	return 1;
+}
+__setup("overclock.cpu=", read_cpu_overclock_state);
+
 #define WARN_CLK(core, name, cond, fmt, ...) do {		\
 		clk_debug_print_hw(core, NULL);			\
 		WARN(cond, "%s: " fmt, name, ##__VA_ARGS__);	\
