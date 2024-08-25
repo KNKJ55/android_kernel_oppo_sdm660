@@ -34,10 +34,6 @@ jobs:
         run: |
           git clone --recursive https://github.com/$GITHUB_REPOSITORY/ -b ${{ steps.branch-names.outputs.current_branch }} --depth 1 $GITHUB_WORKSPACE/workdir/source
 
-      - name: KernelSU Prepare
-        run: |
-          ln -s $GITHUB_WORKSPACE/workdir/source/KernelSU $GITHUB_WORKSPACE/workdir/source/drivers/kernelsu
-
       - name: Build Kernel
         run: |
           export KBUILD_BUILD_HOST=Github-Action
