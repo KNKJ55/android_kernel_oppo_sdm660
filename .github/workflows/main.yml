@@ -34,6 +34,12 @@ jobs:
         run: |
           git clone --recursive https://github.com/$GITHUB_REPOSITORY/ -b ${{ steps.branch-names.outputs.current_branch }} --depth 1 $GITHUB_WORKSPACE/workdir/source
 
+      - name: Add KernelSU to kernel
+        run: |
+          cd $GITHUB_WORKSPACE/workdir/source
+          rm -rf KernelSU
+          curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.5
+
       - name: Build Kernel
         run: |
           export KBUILD_BUILD_HOST=Github-Action
